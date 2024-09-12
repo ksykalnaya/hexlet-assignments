@@ -51,7 +51,8 @@ class ApplicationTest {
     public void testIndex() throws Exception {
         mockMvc.perform(get("/posts"))
                 .andExpect(status().isOk())
-                .andExpect(header().string("X-Total-Count", "10"));
+                .andExpect(header()
+                        .string("X-Total-Count", "10"));
     }
 
     @Test
