@@ -9,6 +9,9 @@ public class Night implements Daytime {
     }
 
     // BEGIN
-    
+    @PostConstruct
+    private void init(){
+        System.out.println("Bean 'Night' initialized");
+    }
     // END
 }
