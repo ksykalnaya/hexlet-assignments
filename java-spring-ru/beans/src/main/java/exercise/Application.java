@@ -28,7 +28,7 @@ public class Application {
     @RequestScope
     public Daytime getDaytime(){
         int hour = LocalDateTime.now().getHour();
-        if(hour > 6 && hour < 22){
+        if(hour >= 6 && hour < 22){
             return new Day();
         } else {
             return new Night();
