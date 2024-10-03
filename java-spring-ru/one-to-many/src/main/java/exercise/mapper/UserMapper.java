@@ -18,4 +18,5 @@ public abstract class UserMapper {
 
     public abstract User map(UserCreateDTO dto);
     public abstract UserDTO map(User model);
+
 }

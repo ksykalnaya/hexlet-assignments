@@ -1,6 +1,6 @@
 package exercise.util;
 
-import exercise.model.Task;
+import exercise.model.Task2;
 import exercise.model.User;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class ModelGenerator {
-    private Model<Task> taskModel;
+    private Model<Task2> taskModel;
     private Model<User> userModel;
 
     @Autowired
@@ -30,10 +30,10 @@ public class ModelGenerator {
                 .toModel();
 
 
-        taskModel = Instancio.of(Task.class)
-                .ignore(Select.field(Task::getId))
-                .supply(Select.field(Task::getTitle), () -> faker.lorem().word())
-                .supply(Select.field(Task::getDescription), () -> faker.gameOfThrones().quote())
+        taskModel = Instancio.of(Task2.class)
+                .ignore(Select.field(Task2::getId))
+                .supply(Select.field(Task2::getTitle), () -> faker.lorem().word())
+                .supply(Select.field(Task2::getDescription), () -> faker.gameOfThrones().quote())
                 .toModel();
     }
 }

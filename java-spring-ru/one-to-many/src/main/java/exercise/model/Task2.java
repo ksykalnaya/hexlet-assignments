@@ -2,9 +2,7 @@ package exercise.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import static jakarta.persistence.GenerationType.IDENTITY;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -18,12 +16,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "assignees")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Task {
+public class Task2 {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private long id;
@@ -41,6 +41,8 @@ public class Task {
     private LocalDate updatedAt;
 
     // BEGIN
-    
+    @ManyToOne
+    @NotNull
+    private User assignee;
     // END
 }
