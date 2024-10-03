@@ -1,11 +1,13 @@
 package exercise.controller;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
 import exercise.dto.ProductUpdateDTO;
 import exercise.mapper.ProductMapper;
+import exercise.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +34,45 @@ public class ProductsController {
     private ProductMapper productMapper;
 
     // BEGIN
-    
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductDTO> index(){
+        return productRepository.findAll().stream()
+                .map(productMapper::map).toList();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO show(@PathVariable Long id){
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        return productMapper.map(product);
+    }
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto){
+        Product product = productMapper.map(dto);
+        productRepository.save(product);
+        return productMapper.map(product);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDTO dto){
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        productMapper.update(dto, product);
+        productRepository.save(product);
+        return productMapper.map(product);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        productRepository.delete(product);
+    }
     // END
 }
