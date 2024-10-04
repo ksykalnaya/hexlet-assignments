@@ -5,6 +5,7 @@ import exercise.dto.AuthorDTO;
 import exercise.dto.AuthorUpdateDTO;
 import exercise.model.Author;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
@@ -19,7 +20,9 @@ import org.mapstruct.MappingTarget;
 public abstract class AuthorMapper {
 
     // BEGIN
-    
+    public abstract AuthorDTO map(Author author);
+
+    public abstract Author map(AuthorCreateDTO dto);
     // END
 
     public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);
